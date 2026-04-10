@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import '../Styles/FormStyles.css';
 import '../Styles/ReminderStyles.css';
 import ReminderPicker from './ReminderPicker';
@@ -12,7 +12,8 @@ const Form = ({ addNote }) => {
   const [formReminderOpen, setFormReminderOpen] = useState(false);
   const formRef = useRef(null);
 
-  const saveNoteAndClose = () => {
+  // Wrap this in useCallback to prevent recreation on every render
+  const saveNoteAndClose = useCallback(() => {
     if (title.trim() || content.trim()) {
       addNote(title, content, pendingReminder);
     }
@@ -21,7 +22,7 @@ const Form = ({ addNote }) => {
     setPendingReminder(null);
     setFormReminderOpen(false);
     setIsActive(false);
-  };
+  }, [title, content, pendingReminder, addNote]);
 
   const handleInactiveClick = () => {
     setIsActive(true);
@@ -55,7 +56,7 @@ const Form = ({ addNote }) => {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [isActive, title, content, pendingReminder, saveNoteAndClose]);
+  }, [isActive, saveNoteAndClose]); // Only depend on isActive and saveNoteAndClose
 
   return (
     <div>
