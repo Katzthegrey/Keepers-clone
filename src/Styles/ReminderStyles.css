@@ -1,0 +1,214 @@
+.reminder-anchor {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.reminder-picker {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 0;
+  z-index: 200;
+  min-width: 260px;
+  max-width: min(92vw, 320px);
+  padding: 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: 0 1px 2px 0 var(--shadow-soft), 0 2px 6px 2px var(--shadow-soft-2);
+}
+
+.reminder-picker-label {
+  font-family: 'Google Sans', 'Roboto', Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+  letter-spacing: 0.3px;
+}
+
+.reminder-picker-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 14px;
+  font-family: Roboto, Arial, sans-serif;
+  color: var(--text-primary);
+  background: var(--app-bg);
+}
+
+.reminder-picker-input:focus {
+  outline: 2px solid var(--text-secondary);
+  outline-offset: 1px;
+}
+
+.reminder-picker-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+.reminder-picker-btn {
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: none;
+  font-size: 13px;
+  font-family: 'Google Sans', 'Roboto', Arial, sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  color: var(--text-secondary);
+  background: var(--surface-2);
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.reminder-picker-btn:hover {
+  background: var(--hover-overlay);
+  color: var(--text-primary);
+}
+
+.reminder-picker-btn.primary {
+  background: var(--text-primary);
+  color: var(--app-bg);
+}
+
+body[data-theme='dark'] .reminder-picker-btn.primary {
+  color: var(--surface);
+}
+
+.reminder-picker-btn.primary:hover {
+  opacity: 0.92;
+}
+
+.note-reminder-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  background: var(--surface-2);
+  font-size: 12px;
+  font-family: Roboto, Arial, sans-serif;
+  color: var(--text-secondary);
+}
+
+.note-reminder-row.note-reminder-overdue {
+  background: rgba(217, 48, 37, 0.12);
+  color: #d93025;
+}
+
+.note-reminder-icon {
+  font-size: 16px !important;
+  padding: 0 !important;
+  color: inherit !important;
+}
+
+.note-reminder-countdown {
+  flex: 1;
+  min-width: 0;
+  font-weight: 500;
+  color: var(--text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.note-reminder-overdue .note-reminder-countdown {
+  color: #d93025;
+}
+
+.note-reminder-clear {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px;
+  border: none;
+  background: transparent;
+  border-radius: 50%;
+  cursor: pointer;
+  color: inherit;
+  line-height: 0;
+}
+
+.note-reminder-clear .material-icons-outlined {
+  font-size: 16px !important;
+  padding: 4px !important;
+}
+
+.note-reminder-clear:hover {
+  background: var(--hover-overlay);
+}
+
+.form-reminder-pending {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  font-size: 12px;
+  font-family: Roboto, Arial, sans-serif;
+  color: var(--text-secondary);
+  padding: 4px 0 8px;
+  margin-top: -4px;
+}
+
+.form-reminder-pending .material-icons-outlined {
+  font-size: 16px !important;
+  padding: 0 !important;
+  color: var(--icon-color) !important;
+}
+
+.form-reminder-pending-clear {
+  margin-left: auto;
+  border: none;
+  background: var(--surface-2);
+  color: var(--text-secondary);
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-reminder-pending-clear:hover {
+  background: var(--hover-overlay);
+  color: var(--text-primary);
+}
+
+.form-reminder-anchor {
+  position: relative;
+  display: inline-flex;
+}
+
+.form-reminder-picker .reminder-picker {
+  bottom: calc(100% + 8px);
+  left: 0;
+  right: auto;
+}
+
+@media (max-width: 480px) {
+  .reminder-picker {
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: min(90vw, 280px);
+  }
+
+  .reminder-picker-input {
+    font-size: 16px;
+  }
+
+  .note-reminder-row {
+    flex-wrap: wrap;
+  }
+
+  .note-reminder-countdown {
+    white-space: normal;
+  }
+}

@@ -1,0 +1,216 @@
+/* Cursor code: theme-aware colors via CSS variables */
+
+/* Main sidebar container */
+.sidebar {
+  width: 72px;
+  height: calc(100vh - 64px); 
+  position: fixed;
+  left: 0;
+  top: 64px; 
+  background-color: var(--sidebar-bg);
+  transition: width 0.2s ease;
+  overflow-x: hidden;
+  overflow-y: auto;
+  z-index: 99;
+  box-shadow: none;
+  transition: box-shadow 0.2s ease, width 0.2s ease;
+}
+
+/* Sidebar container with box shadow on hover */
+.sidebar:hover {
+  width: 240px;
+  box-shadow: 0 1px 2px 0 var(--shadow-soft), 
+              0 2px 6px 2px var(--shadow-soft-2);
+}
+
+/* Icon + optional badge (e.g. reminder count) */
+.sidebar-item-icon-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.sidebar-item-badge {
+  position: absolute;
+  top: 4px;
+  right: 2px;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  border-radius: 8px;
+  background: #d93025;
+  color: #fff;
+  font-size: 9px;
+  font-weight: 600;
+  font-family: 'Google Sans', Roboto, Arial, sans-serif;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  pointer-events: none;
+  box-shadow: 0 0 0 2px var(--sidebar-bg);
+}
+
+/* Individual sidebar items */
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  margin: 4px 8px;
+  border-radius: 0 24px 24px 0;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  position: relative;
+  white-space: nowrap;
+}
+
+/* Sidebar item hover effect */
+.sidebar-item:hover {
+  background-color: var(--sidebar-hover);
+}
+
+/* Active sidebar item styling - ORANGE-ISH HUE */
+.sidebar-item.sidebar-active {
+  background-color: var(--sidebar-active); 
+}
+
+.sidebar-item.sidebar-active:hover {
+  background-color: var(--sidebar-active-hover); 
+}
+
+/* Material Icons styling for sidebar */
+.sidebar-item .sidebar-item-icon-wrap .material-icons-outlined {
+  font-size: 24px;
+  color: var(--icon-color);
+  padding: 12px;
+  margin: 0;
+  transition: color 0.2s ease;
+}
+
+/* Active icon color */
+.sidebar-item.sidebar-active .sidebar-item-icon-wrap .material-icons-outlined {
+  color: #f5a623;
+}
+
+/* Sidebar item text - hidden by default, appears on hover */
+.sidebar-item-text {
+  font-family: 'Google Sans', Roboto, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-left: 20px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+/* Show text when sidebar is hovered */
+.sidebar:hover .sidebar-item-text {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Alternative: Show text on individual item hover even when sidebar is collapsed */
+.sidebar-item:hover .sidebar-item-text {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Tooltip style for collapsed sidebar (optional) */
+.sidebar-item .tooltip-text {
+  position: absolute;
+  left: 70px;
+  background-color: var(--tooltip-bg);
+  color: var(--tooltip-text);
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Roboto, Arial, sans-serif;
+  white-space: nowrap;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s;
+  pointer-events: none;
+}
+
+/* Scrollbar styling */
+.sidebar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 4px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .sidebar {
+    height: calc(100dvh - 56px - env(safe-area-inset-bottom, 0px));
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+}
+
+@media (max-width: 600px) {
+  .sidebar {
+    width: 56px;
+    top: 56px;
+  }
+  
+  .sidebar-item .sidebar-item-icon-wrap .material-icons-outlined {
+    padding: 8px;
+    font-size: 20px;
+  }
+  
+  .sidebar:hover {
+    width: min(240px, calc(100vw - 16px));
+  }
+
+  .sidebar-item {
+    margin-left: 4px;
+    margin-right: 4px;
+  }
+}
+
+@media (max-width: 400px) {
+  .sidebar {
+    width: 52px;
+  }
+
+  .sidebar:hover {
+    width: min(220px, calc(100vw - 12px));
+  }
+
+  .sidebar-item .tooltip-text {
+    font-size: 11px;
+    padding: 5px 10px;
+    left: 64px;
+  }
+}
+
+/* Animation for sidebar items */
+.sidebar-item {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}

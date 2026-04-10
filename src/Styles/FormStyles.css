@@ -1,0 +1,270 @@
+/* Form.css */
+/* Cursor code: theme-aware colors via CSS variables */
+
+/* Container for both form states */
+.form-container {
+  max-width: 600px;
+  margin: 20px auto;
+  background: var(--surface);
+  border-radius: 8px;
+  box-shadow: 0 1px 2px 0 var(--shadow-soft), 0 2px 6px 2px var(--shadow-soft-2);
+  transition: all 0.2s ease;
+}
+
+/* Inactive form styling */
+.inactive-form {
+  cursor: text;
+}
+
+.inactive-form:hover {
+  box-shadow: 0 1px 3px 0 var(--shadow-soft), 0 4px 8px 3px var(--shadow-soft-2);
+}
+
+.inactive-form form {
+  display: flex;
+  flex-direction: row; 
+  align-items: center; 
+  justify-content: space-between; 
+  padding: 8px 12px; 
+  gap: 12px;
+}
+
+.note-text {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  font-family: 'Roboto', Arial, sans-serif;
+  padding: 8px 0;
+  background: transparent;
+  color: var(--text-primary);
+}
+
+.note-text::placeholder {
+  color: var(--text-secondary);
+}
+
+.note-actions {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+/* Active form styling (expanded) */
+
+.active-form.active {
+  display: block;
+}
+
+.active-form form {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+}
+
+.note-title {
+  border: none;
+  outline: none;
+  font-size: 16px;
+  font-family: 'Google Sans', 'Roboto', Arial, sans-serif;
+  font-weight: 500;
+  padding: 8px 0;
+  margin-bottom: 8px;
+  color: var(--text-primary);
+}
+
+.note-title::placeholder {
+  color: var(--text-secondary);
+  font-weight: 400;
+}
+
+.note-content {
+  border: none;
+  outline: none;
+  font-size: 14px;
+  font-family: 'Roboto', Arial, sans-serif;
+  padding: 8px 0;
+  resize: none;
+  min-height: 100px;
+  color: var(--text-primary);
+}
+
+.note-content::placeholder {
+  color: var(--text-secondary);
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+}
+
+.icons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: 'Google Sans', 'Roboto', Arial, sans-serif;
+  font-weight: 500;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.close-btn:hover {
+  background-color: var(--surface-2);
+  color: var(--text-primary);
+}
+
+/* Tooltip styling */
+.tooltip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.material-icons-outlined {
+  font-family: 'Material Icons Outlined';
+  font-size: 20px;
+  color: var(--icon-color);
+  padding: 8px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.material-icons-outlined.hover:hover {
+  background-color: var(--hover-overlay);
+}
+
+.tooltip .tooltip-text {
+  visibility: hidden;
+  background-color: var(--tooltip-bg);
+  color: var(--tooltip-text);
+  text-align: center;
+  padding: 6px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Roboto, Arial, sans-serif;
+  position: absolute;
+  bottom: -35px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: none;
+}
+
+.tooltip .tooltip-text::after {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent var(--tooltip-bg) transparent;
+}
+
+.tooltip:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .form-container {
+    margin-left: max(16px, env(safe-area-inset-left));
+    margin-right: max(16px, env(safe-area-inset-right));
+    max-width: none;
+  }
+
+  .form-actions {
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: stretch;
+  }
+
+  .close-btn {
+    flex: 1 1 120px;
+    min-height: 40px;
+  }
+}
+
+@media (max-width: 600px) {
+  .form-container {
+    margin: 16px max(12px, env(safe-area-inset-left)) 16px max(12px, env(safe-area-inset-right));
+  }
+  
+  .inactive-form {
+    max-width: 100%;
+  }
+  
+  .inactive-form form {
+    padding: 6px 12px;
+    flex-wrap: wrap;
+    row-gap: 8px;
+  }
+
+  .note-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+  
+  .note-text {
+    font-size: 16px;
+    flex: 1 1 100%;
+    min-width: 0;
+  }
+  
+  .material-icons-outlined {
+    font-size: 18px;
+    padding: 6px;
+  }
+  
+  .tooltip .tooltip-text {
+    display: none;
+  }
+
+  .active-form form {
+    padding: 14px;
+  }
+
+  .form-actions .icons {
+    flex: 1 1 100%;
+    justify-content: flex-start;
+  }
+
+  .close-btn {
+    flex: 1 1 100%;
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 400px) {
+  .form-container {
+    margin: 12px 10px;
+    border-radius: 6px;
+  }
+
+  .note-content {
+    min-height: 88px;
+  }
+
+  .icons {
+    gap: 6px;
+  }
+}

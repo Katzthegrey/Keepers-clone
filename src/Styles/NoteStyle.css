@@ -1,0 +1,379 @@
+/* Notes.css */
+/* Cursor code: theme-aware colors via CSS variables */
+
+/* Main notes container - flexbox horizontal layout */
+.notes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 32px;
+  margin-left: 72px; /* Space for sidebar */
+  transition: margin-left 0.2s ease;
+}
+
+/* When sidebar expands */
+.sidebar:hover ~ .notes {
+  margin-left: 240px;
+}
+
+/* Individual note card */
+.note {
+  background-color: var(--surface);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  padding: 16px;
+  position: relative;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  min-height: 120px;
+  width: 240px;
+  flex-shrink: 0;
+}
+
+/* Note hover effect */
+.note:hover {
+  box-shadow: 0 1px 2px 0 var(--shadow-soft), 
+              0 2px 6px 2px var(--shadow-soft-2);
+}
+
+/* Pin Icon Styles */
+.pin-icon {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 20px;
+  color: var(--icon-color);
+  opacity: 0;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 50%;
+  z-index: 10;
+}
+
+.note:hover .pin-icon {
+  opacity: 1;
+}
+
+.pin-icon:hover {
+  background-color: var(--hover-overlay);
+}
+
+.pin-icon.pinned-active {
+  opacity: 1;
+  color: #f5a623;
+  transform: rotate(45deg);
+}
+
+/* Delete Icon Positioning */
+.delete-icon {
+  position: absolute;
+  top: -20px;
+  left: -15px;
+  font-size: 20px;
+  color: var(--icon-color);
+  opacity: 0;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 50%;
+  z-index: 10;
+
+  box-shadow: 0 1px 2px 0 var(--shadow-soft);
+}
+.note:hover .delete-icon {
+  opacity: 1;
+}
+
+.delete-icon:hover {
+  background-color: var(--hover-overlay);
+  color: #d93025;
+}
+
+/* Pinned note styling */
+.note.pinned {
+  border-left: 3px solid #f5a623;
+}
+
+/* Note title */
+.title {
+  font-family: 'Google Sans', 'Roboto', Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+  padding-right: 32px;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+/* Note content */
+.content {
+  font-family: 'Roboto', Arial, sans-serif;
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  flex: 1;
+}
+
+/* Note footer with action icons */
+.note-footer {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid transparent;
+  transition: border-color 0.2s ease;
+}
+
+.note:hover .note-footer {
+  border-top-color: var(--border);
+}
+
+/* Small icons in note footer */
+.small-icon {
+  font-size: 18px !important;
+  padding: 6px !important;
+}
+
+/* Tooltip container */
+.tooltip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Material Icons base styling */
+.material-icons-outlined {
+  font-family: 'Material Icons Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 20px;
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: 'liga';
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  color: var(--icon-color);
+}
+
+.material-icons-outlined.hover:hover {
+  background-color: var(--hover-overlay);
+}
+
+/* Tooltip text */
+.tooltip .tooltip-text {
+  visibility: hidden;
+  background-color: var(--tooltip-bg);
+  color: var(--tooltip-text);
+  text-align: center;
+  padding: 6px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 500;
+  position: absolute;
+  bottom: -35px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: none;
+}
+
+/* Tooltip arrow */
+.tooltip .tooltip-text::after {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent var(--tooltip-bg) transparent;
+}
+
+/* Show tooltip on hover */
+.tooltip:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Active/click effect on icons */
+.material-icons-outlined:active {
+  transform: scale(0.95);
+}
+
+/* Empty notes message */
+.empty-notes {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-secondary);
+  font-family: 'Roboto', Arial, sans-serif;
+  font-size: 14px;
+  width: 100%;
+}
+
+.empty-notes p {
+  margin: 0;
+}
+
+/* Section Titles */
+.notes-section {
+  margin: 20px 0;
+}
+
+.section-title {
+  font-family: 'Google Sans', 'Roboto', Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  color: var(--text-secondary);
+  padding: 0 32px;
+  margin: 16px 0 8px 0;
+}
+
+/* Adjust note grid for sections */
+.notes-section .notes {
+  margin-left: 72px;
+  padding-top: 0;
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+  .notes {
+    gap: 14px;
+    padding: 24px;
+  }
+  
+  .note {
+    width: 220px;
+  }
+}
+
+@media (max-width: 768px) {
+  .notes {
+    gap: 12px;
+    padding: 16px max(16px, env(safe-area-inset-left)) 16px max(16px, env(safe-area-inset-right));
+    margin-left: 0;
+  }
+  
+  .notes-section .notes {
+    margin-left: 0;
+  }
+  
+  .note {
+    width: calc(50% - 6px);
+    min-width: 0;
+    max-width: 320px;
+    padding: 12px;
+    flex: 1 1 calc(50% - 6px);
+  }
+  
+  .note-footer {
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+  
+  .small-icon {
+    font-size: 16px !important;
+    padding: 4px !important;
+  }
+  
+  .section-title {
+    padding: 0 max(16px, env(safe-area-inset-left)) 0 max(16px, env(safe-area-inset-right));
+  }
+}
+
+@media (max-width: 600px) {
+  .note {
+    width: 100%;
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+    flex: 1 1 100%;
+  }
+
+  .notes {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 16px max(12px, env(safe-area-inset-left)) 16px max(12px, env(safe-area-inset-right));
+  }
+
+  .empty-notes {
+    padding: 40px 16px;
+  }
+
+  .pin-icon {
+    opacity: 1;
+  }
+
+  .delete-icon {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 480px) {
+  .notes {
+    gap: 12px;
+    padding: 12px max(10px, env(safe-area-inset-left)) 12px max(10px, env(safe-area-inset-right));
+  }
+  
+  .note {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .title {
+    padding-right: 40px;
+  }
+}
+
+@media (max-width: 380px) {
+  .note {
+    padding: 12px;
+  }
+
+  .delete-icon {
+    left: -8px;
+    top: -12px;
+  }
+
+  .section-title {
+    font-size: 11px;
+    padding-left: max(12px, env(safe-area-inset-left));
+    padding-right: max(12px, env(safe-area-inset-right));
+  }
+}
+
+/* Animation for new notes */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.note {
+  animation: fadeIn 0.2s ease;
+}

@@ -1,0 +1,292 @@
+/* Navbar.css */
+/* Cursor code: theme-aware colors via CSS variables (see src/index.css) */
+
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Navbar.css */
+
+/* Main navbar container */
+.navbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 16px;
+  border-bottom: 1px solid var(--border);
+  background-color: var(--navbar-bg);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  gap: 20px;
+}
+
+/* Logo area */
+.logo-area {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  min-width: fit-content;
+}
+
+.logo-area img {
+  width: 40px;
+  height: 40px;
+}
+
+.logo-text {
+  font-size: 22px;
+  color: var(--text-primary);
+  font-family: 'Google Sans', Roboto, Arial, sans-serif;
+  font-weight: 400;
+}
+
+/* Search area - takes remaining space */
+.search-area {
+  flex: 1;
+  max-width: 720px;
+  display: flex;
+  align-items: center;
+  background-color: var(--search-bg);
+  border-radius: 8px;
+  padding: 4px 8px;
+  transition: background-color 0.2s, box-shadow 0.2s;
+  margin-left: -260px;
+}
+
+.search-area:hover,
+.search-area:focus-within {
+  background-color: var(--search-bg-focus);
+  box-shadow: 0 1px 1px 0 rgba(65, 69, 73, 0.2), 
+              0 1px 3px 1px rgba(65, 69, 73, 0.15);
+}
+
+.search-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 12px 8px;
+  font-size: 16px;
+  outline: none;
+  font-family: Roboto, Arial, sans-serif;
+  color: var(--text-primary);
+}
+
+.search-input::placeholder {
+  color: var(--text-secondary);
+}
+
+/* Right side icons container - groups all icons together */
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Settings area and profile area combined */
+.setting-area,
+.profile-area-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Material Icons styling - GREYISH COLOR like Google Keep */
+.material-icons-outlined {
+  font-family: 'Material Icons Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: 'liga';
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  /* This is the key - Google Keep's icon color */
+  color: var(--icon-color);
+}
+
+.material-icons-outlined.hover:hover {
+  background-color: var(--hover-overlay);
+}
+
+/* Active/click effect */
+.material-icons-outlined:active {
+  transform: scale(0.95);
+}
+
+/* Tooltip container */
+.tooltip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Tooltip text */
+.tooltip .tooltip-text {
+  visibility: hidden;
+  background-color: var(--tooltip-bg);
+  color: var(--tooltip-text);
+  text-align: center;
+  padding: 6px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 500;
+  position: absolute;
+  bottom: -35px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: none;
+}
+
+/* Tooltip arrow */
+.tooltip .tooltip-text::after {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent var(--tooltip-bg) transparent;
+}
+
+/* Show tooltip on hover */
+.tooltip:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Cursor code: accessible theme toggle (sun / moon icons via Material) */
+.dark-mode-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: transparent;
+  border-radius: 50%;
+  cursor: pointer;
+  line-height: 0;
+}
+
+.dark-mode-toggle:focus-visible {
+  outline: 2px solid var(--text-secondary);
+  outline-offset: 2px;
+}
+
+/* Logout specific styling */
+.logout {
+  position: relative;
+}
+
+.auth-user {
+  display: none;
+}
+
+/* Responsive design */
+@media (max-width: 900px) {
+  .search-area {
+    margin-left: 0;
+    max-width: none;
+  }
+}
+
+@media (max-width: 800px) {
+  .logo-text {
+    display: none;
+  }
+  
+  .search-area {
+    margin: 0 10px;
+  }
+  
+  .navbar-container {
+    gap: 12px;
+  }
+}
+
+@media (max-width: 600px) {
+  .navbar-container {
+    padding: 4px 8px;
+    gap: 8px;
+  }
+  
+  .logo-area img {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .material-icons-outlined {
+    font-size: 20px;
+    padding: 6px;
+  }
+  
+  .tooltip .tooltip-text {
+    display: none;
+  }
+  
+  .navbar-right {
+    gap: 4px;
+  }
+  
+  .setting-area,
+  .profile-area-actions {
+    gap: 2px;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar-container {
+    flex-wrap: wrap;
+    row-gap: 4px;
+  }
+
+  .logo-area {
+    flex: 0 0 auto;
+  }
+
+  .navbar-right {
+    flex: 0 0 auto;
+    margin-left: auto;
+  }
+
+  .search-area {
+    order: 3;
+    flex: 1 1 100%;
+    max-width: none;
+    margin: 8px 0 0;
+    padding: 6px 10px;
+  }
+
+  .search-input {
+    padding: 10px 6px;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 360px) {
+  .navbar-container {
+    padding: 4px 6px;
+  }
+}
