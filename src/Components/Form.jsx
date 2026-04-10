@@ -55,7 +55,7 @@ const Form = ({ addNote }) => {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [isActive, title, content, pendingReminder]);
+  }, [isActive, title, content, pendingReminder, saveNoteAndClose]);
 
   return (
     <div>
