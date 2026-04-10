@@ -4,7 +4,7 @@ import Navbar from "./Components/Navbar";
 import Sidebar from "./Components/Sidebar";
 import Form from "./Components/Form";
 import Notes from "./Notes/Notes";
-import Modal from "./Modals/Modal";
+
 
 const maybeRequestNotificationPermission = () => {
   if (typeof Notification !== 'undefined' && Notification.permission === 'default') {
