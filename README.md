@@ -1,70 +1,90 @@
-# Getting Started with Create React App
+# Google Keep Clone - My React Notes Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## About This Project
 
-## Available Scripts
+I built this Google Keep clone as a learning project to understand how React handles state management and component communication. The application lets users create, organize, and manage notes with features like pinning important notes and changing background colors.
 
-In the project directory, you can run:
+I also added a few more features along the way - a search bar that filters through all my notes and a dark mode toggle for late night note taking. My AI coding assistant helped me implement dark mode and reminder features, which turned out to be great additions.
 
-### `npm start`
+## How I Structured The Application
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+I decided to keep all note data in a central location - the App component. This component maintains a master array of note objects and passes down functions to child components as props. This approach means data flows in one direction, which makes debugging much easier.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+The note objects in my array contain several properties:
+- A unique ID generated from the current timestamp
+- A title and content text
+- A boolean value indicating whether the note is pinned
+- A color code for the note's background
+- An optional reminder date and time
 
-### `npm test`
+## Features I Implemented
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Creating Notes
+When you click on the form, it expands to show title and content fields. You can type your note and save it by clicking outside the form or pressing the close button. The form sends the title and content up to the App component, which adds your new note to the master array.
 
-### `npm run build`
+### Deleting Notes
+Each note displays a delete icon when you hover over it. Clicking this icon tells the App component to filter out that specific note from the array.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Pinning Notes
+The pin icon appears in the top right corner of each note on hover. When clicked, it toggles the note's pinned status between true and false. Pinned notes automatically move to a separate section above the regular notes.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Changing Note Colors
+Clicking the palette icon opens a grid of color options. Selecting a color updates that note's color property, and the note's background changes immediately.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Search Bar Filter
+I implemented the search bar myself to filter notes based on title or content. When you type into the search field, the application filters both pinned and unpinned notes in real time. Only notes matching your search query appear on screen, while still keeping pinned notes above unpinned ones.
 
-### `npm run eject`
+### Dark Mode
+With help from my AI assistant, I added a dark mode toggle in the navbar. Clicking the moon or sun icon switches the entire application between light and dark themes. All colors adjust - backgrounds, text, borders, and icons - creating a comfortable viewing experience in low light.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Reminders
+My AI assistant also helped me build the reminder feature. Each note has a bell icon that opens a date and time picker. When you set a reminder, the icon changes color to show an active reminder is set. The application tracks these reminders and can alert you when they are due.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## How To Use The Application
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Starting The App
+After cloning the repository, run `npm install` to download the dependencies. Then run `npm start` to launch the development server. The application will open in your browser at localhost port 3000.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Creating Your First Note
+Click on the form that says "Take a note". The form expands to show a title field and a larger text area. Type your title and content. Click anywhere outside the form or press the close button - your note saves automatically.
 
-## Learn More
+### Managing Your Notes
+Hover over any note to reveal the action icons. Click the push pin icon to pin important notes to the top. Click the delete icon to remove a note you no longer need. Click the palette icon to change the note's background color from a selection of twelve options. Click the bell icon to set a reminder with a specific date and time.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Searching Your Notes
+Type any word into the search bar at the top of the page. The display updates instantly to show only notes containing that word in either the title or content. The pinned section stays above the unpinned section even during search.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Switching To Dark Mode
+Look for the moon or sun icon in the navigation bar. Click it once to switch to dark mode. Click again to return to light mode. Your preference stays active until you change it.
 
-### Code Splitting
+### Viewing Organization
+Pinned notes appear in a section labeled "PINNED" at the top. Regular notes appear below in a section labeled "OTHERS". The section headers only show up when you have at least one pinned note. The search bar filters both sections together.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Technical Decisions I Made
 
-### Analyzing the Bundle Size
+I chose not to use useReducer for this project because I wanted to keep the state management straightforward with useState hooks. The App component contains the main functions: addNote, deleteNote, togglePin, changeColor, addReminder, and toggleDarkMode. Each function updates the notes array using immutable patterns like map and filter.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+I created a Notes wrapper component that simply passes props through to the individual Note components. This keeps the rendering logic separate from the data manipulation logic.
 
-### Making a Progressive Web App
+For the color picker and reminder picker, I built custom components that manage their own open and close state while receiving functions as props from the parent.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+The search filter runs on every keystroke. I filter the master notes array first based on the search query, then separate the results into pinned and unpinned groups for display.
 
-### Advanced Configuration
+Dark mode works through CSS variables. I defined light and dark color palettes and switch them by toggling a data attribute on the root HTML element.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## What I Learned
 
-### Deployment
+This project taught me how to lift state up to parent components and pass functions down through multiple levels of components. I learned why keeping a single source of truth makes React applications easier to maintain. I also practiced conditional rendering, dynamic styling with inline styles, handling user events, filtering arrays without mutating original data, and managing multiple UI states simultaneously.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Getting help from my AI assistant on dark mode and reminders showed me how to approach features I was less confident about while still understanding the code being added to my project.
 
-### `npm run build` fails to minify
+## Future Improvements I Might Add
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+I want to add local storage persistence so notes survive a browser refresh. I am also considering category tags for better organization and rich text formatting in notes.
+
+## Technologies I Used
+
+- React for the user interface
+- CSS for styling with flexbox layouts and CSS variables
+- Material Icons for the icon set
+- Create React App for the build tooling
