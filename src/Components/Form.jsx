@@ -12,7 +12,6 @@ const Form = ({ addNote }) => {
   const [formReminderOpen, setFormReminderOpen] = useState(false);
   const formRef = useRef(null);
 
-  // Wrap this in useCallback to prevent recreation on every render
   const saveNoteAndClose = useCallback(() => {
     if (title.trim() || content.trim()) {
       addNote(title, content, pendingReminder);
@@ -47,16 +46,15 @@ const Form = ({ addNote }) => {
       }
     };
 
-    // Add event listener when the form is active
+    //  event listener when the form is active
     if (isActive) {
       document.addEventListener('mousedown', handleClickOutside);
     }
 
-    // Cleanup the event listener
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [isActive, saveNoteAndClose]); // Only depend on isActive and saveNoteAndClose
+  }, [isActive, saveNoteAndClose]); 
 
   return (
     <div>

@@ -55,7 +55,8 @@ const App = () => {
     }, 1000);
     return () => window.clearInterval(id);
   }, [notes]);
-
+ 
+  //Add Note function, passed down to Form component
   const addNote = (title, content, reminderAt = null) => {
     if (title.trim() || content.trim()) {
       const newNote = {
@@ -107,9 +108,11 @@ const App = () => {
     });
   }, [notes]);
 
+  //Search functionality - filter notes based on search term
   const matchesSearch = (note) =>
     note.title.toLowerCase().includes(searchTerm.toLowerCase());
-
+  
+  //Pinned notes should be separated and shown at the top, followed by unpinned notes. Both should be filterable by the search term.
   const pinnedNotes = notes.filter((note) => note.pinned);
   const unpinnedNotes = notes.filter((note) => !note.pinned);
 
